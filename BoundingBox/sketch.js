@@ -1,40 +1,36 @@
 let faceMesh;
 let bodyPose;
-let videos = []; // 存储多个摄像头
+let video;
 let faces = [];
 let poses = [];
 let deviceIDs = [
- "68f51382736fedbb210984efedd896da8c40265d3513d791c052b1f9f3612ab7"
-]; // 你的摄像头 ID
-
+  "68f51382736fedbb210984efedd896da8c40265d3513d791c052b1f9f3612ab7"
+]; // Camera device ID
 let options = { maxFaces: 10, refineLandmarks: false, flipHorizontal: true };
 
 function setup() {
   createCanvas(640, 480);
   
-  for (let i = 0; i < deviceIDs.length; i++) {
-    let constraints = {
-      video: {
-        deviceId: deviceIDs[i] // 选择特定摄像头
-      }
-    };
-    videos[i] = createCapture(constraints); // 创建不同的摄像头输入
-    videos[i].size(640, 480);
-    videos[i].hide();
-  }
-
-  // 让主摄像头使用 videos[0]
-  let mainVideo = videos[0];
-
-  // 加载模型（必须在摄像头创建后）
+  // Create capture for specific device
+  let constraints = {
+    video: {
+      deviceId: deviceIDs[0] // Use specific camera ID
+    }
+  };
+  
+  video = createCapture(constraints); // Initialize the video with the constraints
+  video.size(640, 480);
+  video.hide();
+  
+  // Initialize face mesh and body pose models
   faceMesh = ml5.faceMesh(options, () => {
     console.log("FaceMesh model loaded");
-    faceMesh.detectStart(mainVideo, gotFaces);
+    faceMesh.detectStart(video, gotFaces);
   });
 
   bodyPose = ml5.bodyPose({ flipped: true }, () => {
     console.log("BodyPose model loaded");
-    bodyPose.detectStart(mainVideo, gotPoses);
+    bodyPose.detectStart(video, gotPoses);
   });
 
   frameRate(21);
@@ -42,19 +38,22 @@ function setup() {
 
 function draw() {
   clear();
-  let mainVideo = videos[0];
+  
+  // Draw flipped video
+   if (video) {
+    push(); // Save the current drawing state
+    scale(-1, 1); // Flip the canvas horizontally
+    image(video, -width, 0, width, height); // Adjust the x-position since the canvas is flipped
+    pop(); // Restore the drawing state
 
-  // 确保视频可用后再绘制
-  if (mainVideo) {
-    image(mainVideo, 0, 0, width, height);
-    mainVideo.loadPixels();
+    video.loadPixels();
 
-    if (mainVideo.pixels.length > 0) {
-      pixelatedBody(mainVideo);
+    if (video.pixels.length > 0) {
+      pixelatedBody(); // Apply pixelation effect on the video
     }
   }
 
-  // 绘制人脸检测框
+  // Draw face bounding boxes
   for (let i = 0; i < faces.length; i++) {
     let face = faces[i];
     noFill();
@@ -63,7 +62,7 @@ function draw() {
     rect(face.box.xMin, face.box.yMin, face.box.width, face.box.height);
   }
 
-  // 绘制人体检测框
+  // Draw body bounding boxes
   for (let i = 0; i < poses.length; i++) {
     let pose = poses[i];
     noFill();
@@ -81,9 +80,9 @@ function draw() {
   }
 }
 
-// 处理像素化身体效果
-function pixelatedBody(video) {
-  const stepSize = 10;
+// Pixelated body effect
+function pixelatedBody() {
+  const stepSize = 6;
 
   for (let i = 0; i < poses.length; i++) {
     let pose = poses[i];
@@ -95,29 +94,29 @@ function pixelatedBody(video) {
         const g = video.pixels[index + 1];
         const b = video.pixels[index + 2];
 
-        // 计算亮度
+        // Get the brightness of the current pixel by averaging the color values
         const brightness = (r + g + b) / 3;
         const squareSize = map(brightness, 0, 255, 0, stepSize * 2);
 
         noStroke();
         fill(random(190, 255), g, b, random(225, 255));
+        // Draw a rectangle using the color of the current pixel
         rect(x, y, stepSize, stepSize);
       }
     }
   }
 }
 
-// FaceMesh 检测回调
+// Callback for face detection results
 function gotFaces(results) {
   faces = results;
 }
 
-// BodyPose 检测回调
+// Callback for body pose detection results
 function gotPoses(results) {
   poses = results;
 }
 
-// 按空格键输出检测到的姿态数据
 function keyPressed() {
   if (key == " ") {
     console.log(poses);
