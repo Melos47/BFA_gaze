@@ -1220,7 +1220,14 @@ function drawEnd1() {
 
   if (capture) {
     capture.loadPixels();
-    let stepSize = floor(map(mouseX, width / 4, width, 10, 30));
+    let stepSize = floor(map(mouseX, width / 2, width, 18, 30));
+
+    push();
+    translate(width, 0); // 把整个画面向右平移一个 canvas 的宽度
+    scale(-1, 1); // 水平镜像翻转
+
+    let offsetX = (width - capture.width) / 2; // 计算居中偏移
+    let offsetY = (height - capture.height) / 2;
 
     for (let y = 0; y < capture.height; y += stepSize) {
       for (let x = 0; x < capture.width; x += stepSize) {
@@ -1230,37 +1237,44 @@ function drawEnd1() {
           let r = capture.pixels[index + 0];
           let g = capture.pixels[index + 1];
           let b = capture.pixels[index + 2];
+
           push();
           let brightness = (r + g + b) / 3;
 
-          if (brightness > 180) {
+          if (brightness > 140) {
             fill(255);
             noStroke();
-          } else if (brightness > 135) {
-            fill(210);
-            noStroke();
-          } else if (brightness > 110) {
-            fill(90);
+          } else if (brightness > 130) {
+            fill(100);
             noStroke();
           } else {
             fill(0);
             noStroke();
           }
-          rect(x, y, stepSize, stepSize);
+
+              if (stepSize > 30)
+    {fill(255, 0,0)
+     noStroke()
+            
+          }
+    
+          rect(x + offsetX, y + offsetY, stepSize, stepSize); // 让画面居中
 
           pop();
         }
       }
     }
+    pop(); // 结束翻转状态
+  }
 
     strokeWeight(1);
     fill(150);
     ellipse(circlePosition.x, circlePosition.y, 23);
-  }
+  
 
   if (
-    xpos > width / 2 - 200 &&
-    xpos < width / 2 + 200 &&
+    xpos > width - 300 &&
+    xpos < width  &&
     ypos > height / 2 - 100 &&
     ypos < height / 2 + 100
   ) {
@@ -1280,6 +1294,7 @@ function drawEnd1() {
   }
   noCursor();
 }
+
 
 function printDeviceIDs() {
   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
