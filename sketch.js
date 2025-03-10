@@ -136,7 +136,7 @@ let textEye4;
 
 let longEye;
 let xOrigin = 3900;
-let yOrigin = 300;
+let yOrigin = 330;
 
 function preload() {
   peek = loadImage("peek.png");
@@ -190,7 +190,7 @@ function preload() {
 }
 
 function setup() {
-  var cnv = createCanvas(840, 525); //replace your other version of create canvas
+  var cnv = createCanvas(windowWidth, windowHeight); //replace your other version of create canvas
   cnv.mousePressed(userStartAudio);
 
   // 选择设备 ID 进行摄像头初始化
@@ -387,7 +387,7 @@ function showMenu() {
     width / 4.5 - 75,
     height / 2.2 + 122.5
   );
-  image(eye1, width / 4.6, height / 2.2, eye1.width / 1.8, eye1.height / 1.8);
+  image(eye1, width / 4.6, height / 2.2, eye1.width / 1.7, eye1.height / 1.7);
   image(eye2, width / 2.45, height / 2.2, eye2.width / 1.9, eye2.height / 1.9);
   image(eye3, width / 1.65, height / 2.2, eye3.width / 1.7, eye3.height / 1.7);
   image(eye4, width / 1.3, height / 2.2, eye4.width / 1.7, eye4.height / 1.7);
@@ -696,8 +696,9 @@ function drawReturnButton() {
 
 function gaze1A() {
   background(0,30);
+  noCursor();
   fill(255, 0, 0);
-  ellipse(width - 100, height / 2, 40);
+  ellipse(width - 80, height / 2, 40);
 
   strokeWeight(1);
 
@@ -708,10 +709,11 @@ function gaze1A() {
   ellipse(circlePosition.x, circlePosition.y, 23);
 
   let currentString5 = string5.substring(0, currentCharacter5);
-  noCursor();
+  
 
   if (
-    mouseX > width - 50 &&
+    mouseX > width - 100 &&
+    mouseX < width - 40 &&
     mouseY > height / 2 - 100 &&
     mouseY < height / 2 + 20
   ) {
@@ -748,7 +750,7 @@ function gaze1A() {
 
   if (
     xOrigin == -1700 &&
-    mouseX > width - 50 &&
+    mouseX > width - 100 &&
     mouseY > height / 2 - 100 &&
     mouseY < height / 2 + 20
   ) {
