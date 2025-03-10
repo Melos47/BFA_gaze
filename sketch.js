@@ -135,7 +135,7 @@ let textEye3;
 let textEye4;
 
 let longEye;
-let xOrigin = 3900;
+let xOrigin = 3700;
 let yOrigin = 330;
 
 function preload() {
@@ -222,8 +222,8 @@ function setup() {
   textSize(28);
 
   bgm.loop();
-  eyeSpacingX = width / cols; // Calculate horizontal spacing between eyes
-  eyeSpacingY = height / rows; // Calculate vertical spacing between eyes
+  eyeSpacingX = windowWidth / cols; // Calculate horizontal spacing between eyes
+  eyeSpacingY = windowHeight / rows; // Calculate vertical spacing between eyes
 
   containerX = 100;
   containerY = 100;
@@ -739,8 +739,8 @@ function gaze1A() {
     strokeWeight(1);
     ellipse(circlePosition.x, circlePosition.y, 30);
     // Code to run if the mouse is on the left.
-    if (xOrigin >= 3900) {
-      xOrigin = 3900;
+    if (xOrigin >= 3700) {
+      xOrigin = 3700;
     } else {
       xOrigin = xOrigin + 6;
     }
