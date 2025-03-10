@@ -29,12 +29,8 @@ let transCamGif3 = 255;
 let transCamGif4 = 255;
 // let cameraLive = "3b96b0196fd5f66117c4ba07be50ba03cf49d666499049e5b11b7c27c2ae3ad5";
 // let deviceIDs = [cameraLive];
-let deviceIDs = [
-  "19d3c63bf5fda8043142467ecc8cdc97f7b4854d1806e7a672799f827f87c410",
+let deviceIDs = [ "654ceab0efe9fa40c14e260353f50868d8cfd901993621afd82fb0041e342ae6"
 ];
-// let deviceIDs = [
-//   "68f51382736fedbb210984efedd896da8c40265d3513d791c052b1f9f3612ab7",
-// ];
 
 let captures = [];
 let capturesTint = 255;
@@ -192,27 +188,25 @@ function preload() {
 function setup() {
   var cnv = createCanvas(windowWidth, windowHeight); //replace your other version of create canvas
   cnv.mousePressed(userStartAudio);
-
-  // 选择设备 ID 进行摄像头初始化
-  capture = createCapture(VIDEO);
-  capture.size(640, 480);
-  capture.hide();
-
   for (let i = 0; i < deviceIDs.length; i++) {
     let options = {
       video: {
-        deviceId: deviceIDs[i],
-      },
+        deviceId: deviceIDs[i]
+      }
     };
-    captures[i] = createCapture(VIDEO);
+    captures[i] = createCapture(options);
     captures[i].size(640, 480);
     captures[i].hide();
   }
 
-  // 让 capture 统一为 captures[0]
-  capture = captures[0];
+  // 默认使用第一个摄像头
+  if (captures.length > 0) {
+    capture = captures[0];
+  }
 
+if (capture) {
   faceMesh.detectStart(capture, gotFaces);
+}
 
   circlePosition = createVector(width / 2, height / 2);
   imageMode(CENTER);
