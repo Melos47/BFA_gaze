@@ -6,10 +6,10 @@ let poses = [];
 let deviceIDs = [
   "68f51382736fedbb210984efedd896da8c40265d3513d791c052b1f9f3612ab7"
 ]; // Camera device ID
-let options = { maxFaces: 10, refineLandmarks: false, flipHorizontal: true };
+let options = { maxFaces: 4, refineLandmarks: false, flipHorizontal: true };
 
 function setup() {
-  createCanvas(640, 480);
+  createCanvas(1920, 1080);
   
   // Create capture for specific device
   let constraints = {
@@ -19,7 +19,7 @@ function setup() {
   };
   
   video = createCapture(constraints); // Initialize the video with the constraints
-  video.size(640, 480);
+  video.size(640, 360);
   video.hide();
   
   // Initialize face mesh and body pose models

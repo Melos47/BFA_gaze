@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+}
+
+
+#defaultCanvas0 {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200% !important;
+    height: 200% !important;
+    transform: translateY(-50%);
+    object-fit: cover;
+}
+
+/* .p5Canvas {
+    border: 10px solid magenta;
+}
+
+canvas {
+    border: 10px solid blue;
+}
+
+canvas {
+    border: 10px solid green;
+} */
