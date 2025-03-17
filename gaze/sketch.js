@@ -122,7 +122,7 @@ let cursor0;
 let cursorgoBack;
 let cursorLeave;
 let cursorContinue;
-let pressE;
+let cursorEscape;
 
 //menupage's hint text
 let textEye1;
@@ -178,7 +178,7 @@ function preload() {
   CamGif2 = loadImage("noise3.gif");
   CamGif3 = loadImage("noise4.gif");
   CamGif4 = loadImage("noise5.gif");
-  pressE = loadImage("pressE.png");
+  cursorEscape = loadImage("escape.png");
   faceMesh = ml5.faceMesh(options);
 
   font1 = loadFont("Silkscreen-Regular.ttf");
@@ -568,31 +568,37 @@ function showMenu() {
       ypos > returnButtonY - 30 &&
       ypos < returnButtonY + 30
     ) {
-      image(pressE, mouseX + 75,
+      image(cursorEscape, mouseX + 75,
       mouseY + 25,
-      pressE.width,
-      pressE.height);
+      cursorEscape.width,
+      cursorEscape.height);
       
       noCursor();
       fill(255, 0, 0);
       ellipse(circlePosition.x, circlePosition.y, 30);
       strokeWeight(1);
 
+      if (button == 1) {
+        allClicked = false; // 重置状态
+        clickedEyes = { eye1: false, eye2: false, eye3: false, eye4: false }; // 重置点击记录
+        restartGame();
+    }
+
     }
   }
 }
-function keyPressed(){
-  if (
-      xpos > returnButtonX - 30 &&
-      xpos < returnButtonX + 30 &&
-      ypos > returnButtonY - 30 &&
-      ypos < returnButtonY + 30
-    ) {
-if(key == 'e'){
-  restartGame();
-}
-  }
-}
+// function keyPressed(){
+//   if (
+//       xpos > returnButtonX - 30 &&
+//       xpos < returnButtonX + 30 &&
+//       ypos > returnButtonY - 30 &&
+//       ypos < returnButtonY + 30
+//     ) {
+// if(key == 'e'){
+//   restartGame();
+// }
+//   }
+// }
 
 function restartGame(){
   window.location.reload();
