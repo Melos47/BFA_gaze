@@ -8,6 +8,9 @@ let button = 0; //button state - change this to any digital input
 let lastbutton = 0;
 let pos;
 let circlePosition;
+//refresh page
+let lastInteractionTime;
+const timeoutDuration = 600000;//10 min = 600000ms
 
 let font1, font2;
 
@@ -185,6 +188,8 @@ function preload() {
 
   font1 = loadFont("Silkscreen-Regular.ttf");
   font2 = loadFont("CourierPrime-Regular.ttf");
+
+  lastInteractionTime = millis(); 
 }
 
 function setup() {
@@ -234,7 +239,6 @@ function draw() {
   ypos = mouseY;
   button = int(mouseIsPressed);
   //console.log(button);
-
   noCursor();
   //噪点
   squareSize = random(7, 25);
@@ -283,6 +287,21 @@ function draw() {
   } else if (scene == 10) {
     gaze3A();
   }
+
+  checkInactivity()
+}
+
+function checkInactivity() {
+  if (millis() - lastInteractionTime > timeoutDuration) {
+    location.reload(); // 10分钟无操作后刷新页面
+  }
+}
+function mouseMoved() {
+  lastInteractionTime = millis(); // 记录鼠标移动时间
+}
+
+function keyPressed() {
+  lastInteractionTime = millis(); // 记录键盘按键时间
 }
 
 function beginning() {
