@@ -100,7 +100,7 @@ function draw() {
 
 // Pixelated body effect
 function pixelatedBody() {
-  const stepSize = 6;
+  const stepSize = 10;
 
   for (let i = 0; i < poses.length; i++) {
     let pose = poses[i];
