@@ -78,6 +78,7 @@ let CamGif1;
 let CamGif2;
 let CamGif3;
 let CamGif4;
+let exit;
 
 
 //噪点
@@ -178,6 +179,7 @@ function preload() {
   CamGif2 = loadImage("noise3.gif");
   CamGif3 = loadImage("noise4.gif");
   CamGif4 = loadImage("noise5.gif");
+  exit = loadImage("exit.png");
   cursorEscape = loadImage("escape.png");
   faceMesh = ml5.faceMesh(options);
 
@@ -558,7 +560,7 @@ function showMenu() {
 
   if (allClicked) {
     fill(255, 0, 0);
-    rect(returnButtonX, returnButtonY, returnButtonSize);
+    image(exit, 150, 120, exit.width/2, exit.height/2);
 
     // 检测鼠标是否在椭圆内
 

@@ -157,4 +157,4 @@ function keyPressed() {
 setTimeout(function(){
   // refresh the page
   window.location.href = window.location.href;
-}, 20000)
+}, 1200000)
