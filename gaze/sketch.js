@@ -10,7 +10,7 @@ let pos;
 let circlePosition;
 //refresh page
 let lastInteractionTime;
-const timeoutDuration = 600000;//10 min = 600000ms
+const timeoutDuration = 300000;//10 min = 600000ms
 
 let font1, font2;
 
@@ -188,9 +188,7 @@ function preload() {
   font1 = loadFont("Silkscreen-Regular.ttf");
   font2 = loadFont("CourierPrime-Regular.ttf");
 
-<<<<<<< HEAD
   lastInteractionTime = millis(); 
-=======
   navigator.mediaDevices.enumerateDevices()
     .then(gotDevices);
 }
@@ -206,7 +204,6 @@ function gotDevices(deviceInfos) {
     }
   }
   console.log(devices[i])
->>>>>>> 17f7cc3a023e91f18eed9f0a5461ed74a0694c23
 }
 
 function setup() {
