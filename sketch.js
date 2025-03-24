@@ -4,37 +4,56 @@ let videoModel;
 let videoDisplay;
 let faces = [];
 let poses = [];
-let deviceIDs = [
-  "68f51382736fedbb210984efedd896da8c40265d3513d791c052b1f9f3612ab7"
-]; // Camera device ID
-let options = { maxFaces: 4, refineLandmarks: false, flipHorizontal: true };
+let devices = [];
+let options = { maxFaces: 10, refineLandmarks: false, flipHorizontal: true };
 let scaler = 1;
 let leftScreen = true;
 
+function preload(){
+  navigator.mediaDevices.enumerateDevices()
+    .then(gotDevices);
+    console.log("preload", devices)
+
+    faceMesh = ml5.faceMesh(options);
+    bodyPose = ml5.bodyPose(options);
+}
+
+function gotDevices(deviceInfos) {
+  for (let i = 0; i !== deviceInfos.length; ++i) {
+    const deviceInfo = deviceInfos[i];
+    if (deviceInfo.kind == 'videoinput') {
+      devices.push({
+        label: deviceInfo.label,
+        id: deviceInfo.deviceId
+      });
+    }
+  }
+  console.log(devices)
+}
 
 function setup() {
   createCanvas(1920, 1080);
 
-  
+  console.log("setup", devices)
   // Create capture for specific device
-  let constraintsModel = {
+  let constraints = {
     video: {
-      deviceId: deviceIDs[0] // Use specific camera ID
+      deviceId: devices[1].id // Use specific camera ID
     }
   };
 
-  // Create capture for specific device
-  let constraintsDisplay = {
-    video: {
-      deviceId: deviceIDs[0] // Use specific camera ID
-    }
-  };
+  // // Create capture for specific device
+  // let constraintsDisplay = {
+  //   video: {
+  //     deviceId: devices[1].id // Use specific camera ID
+  //   }
+  // };
   
-  videoModel = createCapture(constraintsModel); // Initialize the videoModel with the constraints
+  videoModel = createCapture(constraints); // Initialize the videoModel with the constraints
   videoModel.size(640, 360);
   videoModel.hide();
 
-  videoDisplay = createCapture(VIDEO)
+  videoDisplay = createCapture(constraints)
   videoDisplay.size(1920, 1080)
   videoDisplay.hide()
 
@@ -51,7 +70,7 @@ function setup() {
     bodyPose.detectStart(videoModel, gotPoses);
   });
 
-  frameRate(21);
+  frameRate(30);
 }
 
 function draw() {

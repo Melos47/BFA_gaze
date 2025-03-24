@@ -30,10 +30,9 @@ let transCamGif1 = 255;
 let transCamGif2 = 255;
 let transCamGif3 = 255;
 let transCamGif4 = 255;
-// let cameraLive = "3b96b0196fd5f66117c4ba07be50ba03cf49d666499049e5b11b7c27c2ae3ad5";
-// let deviceIDs = [cameraLive];
-let deviceIDs = [ "654ceab0efe9fa40c14e260353f50868d8cfd901993621afd82fb0041e342ae6"
-];
+
+let devices = [] // = [ "654ceab0efe9fa40c14e260353f50868d8cfd901993621afd82fb0041e342ae6"
+// ];
 
 let captures = [];
 let capturesTint = 255;
@@ -189,27 +188,46 @@ function preload() {
   font1 = loadFont("Silkscreen-Regular.ttf");
   font2 = loadFont("CourierPrime-Regular.ttf");
 
+<<<<<<< HEAD
   lastInteractionTime = millis(); 
+=======
+  navigator.mediaDevices.enumerateDevices()
+    .then(gotDevices);
+}
+
+function gotDevices(deviceInfos) {
+  for (let i = 0; i !== deviceInfos.length; ++i) {
+    const deviceInfo = deviceInfos[i];
+    if (deviceInfo.kind == 'videoinput') {
+      devices.push({
+        label: deviceInfo.label,
+        id: deviceInfo.deviceId
+      });
+    }
+  }
+  console.log(devices[i])
+>>>>>>> 17f7cc3a023e91f18eed9f0a5461ed74a0694c23
 }
 
 function setup() {
   var cnv = createCanvas(1280, 720); //replace your other version of create canvas
   cnv.mousePressed(userStartAudio);
-  for (let i = 0; i < deviceIDs.length; i++) {
-    let options = {
-      video: {
-        deviceId: deviceIDs[i]
-      }
-    };
-    captures[i] = createCapture(options);
-    captures[i].size(640, 480);
-    captures[i].hide();
-  }
+  
+  let options = {
+    video: {
+      deviceId: devices[0].id
+    }
+  };
+  
+  capture = createCapture(options)
+  capture.size(640, 480)
+  capture.hide()
+  console.log(capture)
 
   // 默认使用第一个摄像头
-  if (captures.length > 0) {
-    capture = captures[0];
-  }
+  // if (captures.length > 0) {
+  //   capture = captures[0];
+  // }
 
 if (capture) {
   faceMesh.detectStart(capture, gotFaces);
@@ -520,7 +538,7 @@ function showMenu() {
     ypos > height / 2.2 - 80 &&
     ypos < height / 2.2 + 80
   ) {
-    noCursor();
+ noCursor();
     push();
     fill(255, 0, 0);
     ellipse(circlePosition.x, circlePosition.y, 30);
@@ -637,7 +655,7 @@ function checkAllClicked() {
 }
 
 function gaze1() {
-  background(0);
+  background(0,30);
   noCursor();
   let mousePos = createVector(mouseX, mouseY);
   circlePosition.lerp(mousePos, 0.1);
@@ -716,7 +734,7 @@ function drawReturnButton() {
 }
 
 function gaze1A() {
-  background(0,30);
+  background(0);
   noCursor();
   fill(255, 0, 0);
   ellipse(width - 80, height / 2, 40);
@@ -746,7 +764,7 @@ function gaze1A() {
     if (xOrigin <= -1700) {
       xOrigin = -1700;
     } else {
-      xOrigin = xOrigin - 6;
+      xOrigin = xOrigin - random(6, 7);
     }
   }
   if (
@@ -763,7 +781,7 @@ function gaze1A() {
     if (xOrigin >= 3700) {
       xOrigin = 3700;
     } else {
-      xOrigin = xOrigin + 6;
+      xOrigin = xOrigin + random(6, 7);
     }
   }
 
