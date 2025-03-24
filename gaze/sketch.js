@@ -238,8 +238,8 @@ if (capture) {
   textSize(28);
 
   bgm.loop();
-  eyeSpacingX = windowWidth / cols; // Calculate horizontal spacing between eyes
-  eyeSpacingY = windowHeight / rows; // Calculate vertical spacing between eyes
+  eyeSpacingX = width / cols; // Calculate horizontal spacing between eyes
+  eyeSpacingY = height / rows; // Calculate vertical spacing between eyes
 
   containerX = 100;
   containerY = 100;
@@ -845,14 +845,14 @@ function gaze2() {
   strokeWeight(1);
   ellipse(circlePosition.x, circlePosition.y, 23);
 
-  image(sphere1, width / 2, height / 2, sphere1.width / 2, sphere1.height / 2);
+  image(sphere1, width / 2, height / 2, sphere1.width / 1.8, sphere1.height / 1.8);
   image(sphere2, width / 4, height / 2, sphere2.width / 2, sphere2.height / 2);
   image(
     sphere3,
     width / 1.33,
     height / 2,
-    sphere3.width / 2,
-    sphere3.height / 2
+    sphere3.width / 1.6,
+    sphere3.height / 1.6
   );
   // ellipse(circlePosition.x, circlePosition.y, 23);
   // fill(150);
@@ -907,9 +907,9 @@ function gaze2A() {
   strokeWeight(1);
   ellipse(circlePosition.x, circlePosition.y, 23);
 
-  image(tv1, width / 2, height / 2, tv1.width / 2, tv1.height / 2);
-  image(tv2, width / 4, height / 2, tv2.width / 2, tv2.height / 2);
-  image(tv3, width / 1.3, height / 2, tv3.width / 2, tv3.height / 2);
+  image(tv1, width / 2, height / 2, tv1.width / 1.8, tv1.height / 1.8);
+  image(tv2, width / 4.2, height / 2, tv2.width / 1.7, tv2.height / 1.7);
+  image(tv3, width / 1.3, height / 2, tv3.width / 1.7, tv3.height / 1.7);
 
   if (
     xpos > width / 2 - 90 &&
@@ -951,7 +951,7 @@ function gaze2B() {
     width / 3.3,
     height / 1.5,
     glitch3.width / 1.6,
-    glitch3.height / 1.65
+    glitch3.width/1.3
   );
   image(
     glitch4,
@@ -1044,8 +1044,8 @@ function gaze3() {
   if (
     xpos > width / 1.7 - 120 &&
     xpos < width / 1.7 + 120 &&
-    ypos > height / 1.4 - 100 &&
-    ypos < height / 1.4 + 100
+    ypos > height / 1.5 - 100 &&
+    ypos < height / 1.5 + 100
   ) {
     noCursor();
     fill(255, 0, 0);
