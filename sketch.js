@@ -38,7 +38,7 @@ function setup() {
   // Create capture for specific device
   let constraints = {
     video: {
-      deviceId: devices[1].id // Use specific camera ID
+      deviceId: devices[0].id // Use specific camera ID
     }
   };
 
