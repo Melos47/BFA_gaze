@@ -10,7 +10,7 @@ let pos;
 let circlePosition;
 //refresh page
 let lastInteractionTime;
-const timeoutDuration = 300000;//10 min = 600000ms
+const timeoutDuration = 300000;//10 min = 600000ms 5min
 
 let font1, font2;
 
