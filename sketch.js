@@ -38,7 +38,7 @@ function setup() {
   // Create capture for specific device
   let constraints = {
     video: {
-      deviceId: devices[1].id // Use specific camera ID
+      deviceId: devices[0].id // Use specific camera ID
     }
   };
 
@@ -119,7 +119,7 @@ function draw() {
 
 // Pixelated body effect
 function pixelatedBody() {
-  const stepSize = 10;
+  const stepSize = 7;
 
   for (let i = 0; i < poses.length; i++) {
     let pose = poses[i];
