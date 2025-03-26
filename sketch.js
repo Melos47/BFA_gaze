@@ -120,7 +120,7 @@ function draw() {
 // Pixelated body effect
 function pixelatedBody() {
   const stepSize = 7;
-  filter(POSTERIZE, 3)
+  filter(THRESHOLD)
 
   for (let i = 0; i < poses.length; i++) {
     let pose = poses[i];
