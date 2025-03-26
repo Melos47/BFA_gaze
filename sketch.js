@@ -70,7 +70,7 @@ function setup() {
     bodyPose.detectStart(videoModel, gotPoses);
   });
 
-  frameRate(30);
+  frameRate(21);
 }
 
 function draw() {
@@ -107,19 +107,20 @@ function draw() {
     strokeWeight(2);
     rect(pose.box.xMin * scaler, pose.box.yMin * scaler, pose.box.width * scaler, pose.box.height * scaler);
     fill(0, 0, 255);
-    rect(pose.box.xMin * scaler, pose.box.yMin * scaler - 60, 100, 60);
+    rect(pose.box.xMin * scaler, pose.box.yMin * scaler - 45, 100, 45);
 
-    textAlign(TOP);
+    textAlign(LEFT);
     textSize(40);
     fill(255);
     noStroke();
-    text("null", pose.box.xMin * scaler, pose.box.yMin * scaler - 20);
+    text("null", pose.box.xMin * scaler, pose.box.yMin * scaler - 15);
   }
 }
 
 // Pixelated body effect
 function pixelatedBody() {
   const stepSize = 7;
+  filter(POSTERIZE, 3)
 
   for (let i = 0; i < poses.length; i++) {
     let pose = poses[i];
@@ -136,7 +137,7 @@ function pixelatedBody() {
         const squareSize = map(brightness, 0, 255, 0, stepSize * 2);
 
         noStroke();
-        fill(random(190, 255), g, b, random(225, 255));
+        fill(random(190, 255), g, b, random(250, 255));
         // Draw a rectangle using the color of the current pixel
         rect(x, y, stepSize, stepSize);
       }
