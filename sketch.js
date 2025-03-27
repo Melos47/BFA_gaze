@@ -87,6 +87,7 @@ function draw() {
 
     if (videoDisplay.pixels.length > 0) {
       pixelatedBody(); // Apply pixelation effect on the video
+
     }
   }
 
@@ -119,8 +120,7 @@ function draw() {
 
 // Pixelated body effect
 function pixelatedBody() {
-  const stepSize = 7;
-  filter(THRESHOLD)
+  const stepSize = 8;
 
   for (let i = 0; i < poses.length; i++) {
     let pose = poses[i];
@@ -134,16 +134,18 @@ function pixelatedBody() {
 
         // Get the brightness of the current pixel by averaging the color values
         const brightness = (r + g + b) / 3;
-        const squareSize = map(brightness, 0, 255, 0, stepSize * 2);
+        
 
+        const squareSize = map(brightness, 0, 255, 0, stepSize * 2);
         noStroke();
-        fill(random(190, 255), g, b, random(250, 255));
+        fill(random(x), r, g, random(250, 255));
         // Draw a rectangle using the color of the current pixel
         rect(x, y, stepSize, stepSize);
       }
     }
   }
 }
+
 
 // Callback for face detection results
 function gotFaces(results) {
