@@ -180,3 +180,4 @@ setTimeout(function(){
   // refresh the page
   window.location.href = window.location.href;
 }, 1200000)
+//20min refresh
