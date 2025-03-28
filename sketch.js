@@ -141,8 +141,8 @@ function pixelatedBody() {
 
         const squareSize = map(brightness, 0, 255, 0, stepSize * 2);
         noStroke();
-        fill(random(x), r, g, random(250, 255));
-        // Draw a rectangle using the color of the current pixel
+        fill(random(190,255), r, g, random(250, 255));
+        // Draw a recta2ngle using the color of the current pixel
         rect(x, y, stepSize, stepSize);
       }
     }
