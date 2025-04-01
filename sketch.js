@@ -120,8 +120,8 @@ function draw() {
 
 // Pixelated body effect
 function pixelatedBody() {
-  // filter(POSTERIZE,4)
-  filter(THRESHOLD)
+  filter(POSTERIZE,3)
+  // filter(THRESHOLD)
   const stepSize = 8;
   
 
@@ -179,8 +179,8 @@ function keyPressed() {
 }
 
 
-setTimeout(function(){
-  // refresh the page
-  window.location.href = window.location.href;
-}, 1200000)
-//20min refresh
+// setTimeout(function(){
+//   // refresh the page
+//   window.location.href = window.location.href;
+// }, 1200000)
+// //20min refresh
